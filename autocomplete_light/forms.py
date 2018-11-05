@@ -86,7 +86,7 @@ class VirtualFieldHandlingMixin(forms.BaseModelForm):
         super(VirtualFieldHandlingMixin, self).__init__(*args, **kwargs)
 
         # do what model_to_dict doesn't
-        for field in self._meta.model._meta.virtual_fields:
+        for field in self._meta.model._meta.private_fields:
             try:
                 self.initial[field.name] = getattr(self.instance, field.name,
                         None)
@@ -102,7 +102,7 @@ class VirtualFieldHandlingMixin(forms.BaseModelForm):
         from django.contrib.contenttypes.models import ContentType
 
         # take care of virtual fields since django doesn't
-        for field in self._meta.model._meta.virtual_fields:
+        for field in self._meta.model._meta.private_fields:
             value = self.cleaned_data.get(field.name, None)
 
             if value:
