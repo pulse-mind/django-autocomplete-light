@@ -24,11 +24,11 @@ except ImportError:
 
 
 class TaggitWidget(TextWidget):
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None, **kwargs):
         if value is not None and not isinstance(value, six.string_types):
             value = edit_string_for_tags(
                 [o.tag for o in value.select_related("tag")])
-        return super(TaggitWidget, self).render(name, value, attrs)
+        return super(TaggitWidget, self).render(name, value, attrs, renderer, **kwargs)
 
 
 class TaggitField(FieldBase, TaggitTagField):
